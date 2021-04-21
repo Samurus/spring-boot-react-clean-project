@@ -21,14 +21,6 @@ node {
     npmWorkDir = file("${project.buildDir}/npm")
 }
 
-repositories.whenObjectAdded {
-    if (it instanceof IvyArtifactRepository) {
-        metadataSources {
-            artifact()
-        }
-    }
-}
-
 task appNpmInstall(type: NpmTask) {
     description = "Installs all dependencies from package.json"
     workingDir = file("${project.projectDir}/src/main/webapp")
