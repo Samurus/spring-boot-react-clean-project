@@ -1,0 +1,43 @@
+plugins {
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	id 'java'
+}
+
+group = 'de.samurus'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+    //Spring-Boot
+	implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+    runtimeOnly project(':account-manager-frontend')
+
+}
+
+task copyWebApp(type: Copy) {
+    from "$rootDir/account-manager-frontend/build"
+    into "$rootDir/account-manager-backend/build/resources/main/templates/."
+
+}
+
+bootJar.dependsOn(copyWebApp)
+compileJava.dependsOn ":account-manager-frontend:build"
+
+test {
+	useJUnitPlatform()
+}

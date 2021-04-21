@@ -1,0 +1,3 @@
+rootProject.name = 'magicpricer'
+include ':account-manager-backend',':account-manager-frontend'
+
