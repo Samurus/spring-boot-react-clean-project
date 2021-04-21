@@ -15,6 +15,23 @@ buildscript {
 
 apply plugin: "com.moowork.node"
 
+node {
+    download = true
+
+    // Set the work directory for unpacking node
+    workDir = file("${project.buildDir}/nodejs")
+
+    // Set the work directory for NPM
+    npmWorkDir = file("${project.buildDir}/npm")
+}
+
+task appNpmInstall(type: NpmTask) {
+    description = "Installs all dependencies from package.json"
+    workingDir = file("${project.projectDir}/src/main/webapp")
+    args = ["install"]
+}
+
+
 task appNpmBuild(type: NpmTask) {
     args = ["run", "build"]
 }
