@@ -17,8 +17,14 @@ apply plugin: "com.moowork.node"
 
 node {
     download = true
-    workDir = file("${project.buildDir}/nodejs")
-    npmWorkDir = file("${project.buildDir}/npm")
+}
+
+repositories.whenObjectAdded {
+    if (it instanceof IvyArtifactRepository) {
+        metadataSources {
+            artifact()
+        }
+    }
 }
 
 task appNpmInstall(type: NpmTask) {
