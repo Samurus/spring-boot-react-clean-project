@@ -15,6 +15,10 @@ buildscript {
 
 apply plugin: "com.moowork.node"
 
+task installJest(type: NpmTask) {
+    setNpmCommand("install", "jest")
+}
+
 node {
     download = true
 }
